@@ -14,7 +14,6 @@ namespace SampleTests
             webClient = new WebClient();
         }
 
-
         [Test]
         public void Can_Load_Google_Homepage()
         {
@@ -36,21 +35,6 @@ namespace SampleTests
                                   where uri.Host.ToLower().EndsWith("codeplex.com")
                                   select uri;
             CollectionAssert.IsNotEmpty(linksToCodeplex);
-        }
-
-        [Test]
-        public void Runs_JavaScript()
-        {
-            // Arrange: Load the demo page
-            var autocompleteDemoPage = (HtmlPage)webClient.getPage("http://jquery.bassistance.de/autocomplete/demo/");
-
-            // Act: Type "lon" into the suggestions box
-            autocompleteDemoPage.getElementById("suggest1").type("lon");
-            webClient.waitForBackgroundJavaScript(1000);
-
-            // Assert: Suggestions should include "London"
-            var suggestions = autocompleteDemoPage.getByXPath("//div[@class='ac_results']/ul/li").toArray().Cast<HtmlElement>().Select(x => x.asText());
-            CollectionAssert.Contains(suggestions, "London");
         }
     }
 }
